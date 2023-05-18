@@ -29,20 +29,18 @@ class Query(graphene.ObjectType):
     
     ## FIXME: not working......!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     train_exp_by_id = graphene.Field(TrainExpType, train_exp_id=graphene.Int())
-    def resolve_train_exp_id(self, info, train_exp_id):
+    def resolve_train_exp_by_id(self, info, train_exp_id):
         if TrainExpDB.objects.filter(id=train_exp_id):
             return TrainExpDB.objects.get(id=train_exp_id)
         
     ### for TrainEpochLogDB #############################################
     train_epoch_log_all = graphene.List(TrainEpochLogType)
-    def resovle_train_epoch_log_all(self, info):
+    def resolve_train_epoch_log_all(self, info):
         return TrainEpochLogDB.objects.all()
     
     train_epoch_log_all_by_train_exp = graphene.List(TrainEpochLogType, train_exp=graphene.Int())
-    def resovle_train_epoch_log_all_by_train_exp(self, info, train_exp):
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        if TrainExpDB.objects.filter(id__icontains=train_exp):
-            print("-=-----------------------------------------")
+    def resolve_train_epoch_log_all_by_train_exp(self, info, train_exp):
+        if TrainExpDB.objects.filter(id=train_exp):
             train_exp_ojb = TrainExpDB.objects.get(id=train_exp)
             if TrainEpochLogDB.objects.filter(train_exp=train_exp_ojb):
                 return TrainEpochLogDB.objects.filter(train_exp=train_exp_ojb)
