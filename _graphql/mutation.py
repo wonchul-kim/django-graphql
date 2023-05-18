@@ -1,9 +1,19 @@
+from calendar import c
 import graphene 
 
-from blog.graphql.schemas.post import PostMutation
-
-from athena.graphql.schemas.project_name import CreateProject
-
+from athena.graphql.schemas.project_name import CreateProject, DeleteProject
+from athena.graphql.schemas.train_exp import CreateTrainExp, DeleteTrainExp
+from athena.graphql.schemas.train_epoch_log import CreateTrainEpochLog
 class Mutation(graphene.ObjectType):
-    create_post = PostMutation.Field()  
+    ### for ProjectDB
     create_project = CreateProject.Field()
+    delete_project = DeleteProject.Field()
+    
+    ### for TrainExpDB
+    create_train_exp = CreateTrainExp.Field() 
+    delete_train_exp = DeleteTrainExp.Field()
+    
+    ### for TrainEpochLogDB
+    create_train_epoch_log = CreateTrainEpochLog.Field()
+    
+    ### for TrainStepLogDB

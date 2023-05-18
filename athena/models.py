@@ -18,7 +18,7 @@ class ProjectDB(models.Model):
         return self.project_name
     
 class TrainExpDB(models.Model):
-    _project = models.ForeignKey(ProjectDB, on_delete=models.CASCADE)
+    project = models.ForeignKey(ProjectDB, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=1500, blank=True)
@@ -27,18 +27,21 @@ class TrainExpDB(models.Model):
         db_table = "TrainExpDB"
         
 class TrainEpochLogDB(models.Model):
-    _project = models.ForeignKey(ProjectDB, on_delete=models.CASCADE)
+    train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
     epoch = models.IntegerField(blank=False)
-    epoch_log = models.JSONField(default=dict, blank=False)
-    
+    log = models.JSONField(default=dict, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         db_table = "TrainEpochLogDB"
         ordering = ['epoch']
     
 class TrainStepLogDB(models.Model):
-    _project = models.ForeignKey(ProjectDB, on_delete=models.CASCADE)
+    train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
     step = models.IntegerField(blank=False)
-    
+    log = models.JSONField(default=dict, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         db_table = "TrainStepLogDB"
         ordering = ['step']
