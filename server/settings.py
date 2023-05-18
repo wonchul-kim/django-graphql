@@ -39,10 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'graphene_django',
     'blog',
+    '_graphql',
+    'athena',
 ]
 
+##### To make the graphql schema available
 GRAPHENE = {
-    "SCHEMA": "blog.graphql.schema.schema",
+    "SCHEMA": "_graphql.schema.schema",
 }
 
 MIDDLEWARE = [
