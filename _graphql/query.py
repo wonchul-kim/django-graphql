@@ -12,7 +12,11 @@ class Query(graphene.ObjectType):
     def resolve_posts(self, info):
         return Post.objects.all()
     
-    all_projects = graphene.List(ProjectType)
-    def resolve_all_projects(self, info):
+    project_all = graphene.List(ProjectType)
+    def resolve_project_all(self, info):
         return ProjectDB.objects.all()
+    
+    project_search = graphene.List(ProjectType, project_name=graphene.String())
+    def resolve_project_search(self, info, **kwargs):
+        return ProjectDB.objects.filter(project_name__icontains=kwargs.get('project_name'))
 
