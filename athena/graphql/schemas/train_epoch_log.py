@@ -12,16 +12,15 @@ class CreateTrainEpochLog(graphene.Mutation):
     class Arguments:
         train_exp = graphene.Int(required=True)
         epoch = graphene.Int(required=True)
-        # log = graphene.types.json.JSONString(required=True)
+        log = graphene.types.json.JSONString(required=True)
         
     train_epoch_log = graphene.Field(TrainEpochLogType)
     msg = graphene.String() 
     
     @classmethod 
-    def mutate(cls, self, info, train_exp, epoch):#, log):
+    def mutate(cls, self, info, train_exp, epoch, log):
         if TrainExpDB.objects.filter(id=train_exp):
             train_exp_db_obj = TrainExpDB.objects.get(id=train_exp)
-            log = {"a": 1, "B": 2, "loss": 0.1}
             train_epoch_log_db = TrainEpochLogDB(train_exp=train_exp_db_obj, epoch=epoch, log=log)
             train_epoch_log_db.save()
 

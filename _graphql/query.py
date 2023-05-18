@@ -1,7 +1,7 @@
 from athena.graphql.schemas.train_epoch_log import TrainEpochLogType
 import graphene 
 
-from athena.graphql.schemas.project_name import ProjectType
+from athena.graphql.schemas.project import ProjectType
 from athena.graphql.schemas.train_exp import TrainExpType
 from athena.models import ProjectDB, TrainExpDB, TrainEpochLogDB
 

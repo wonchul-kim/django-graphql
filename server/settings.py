@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0^c^n$g#eu^5lj^%58eq7s!jgi1b5w%6$i^b5av418a$$8uhzu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
+    'graphql_playground',
     '_graphql',
     'athena',
 ]

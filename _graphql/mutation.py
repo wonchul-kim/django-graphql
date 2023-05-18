@@ -1,7 +1,7 @@
 from calendar import c
 import graphene 
 
-from athena.graphql.schemas.project_name import CreateProject, DeleteProject
+from athena.graphql.schemas.project import CreateProject, DeleteProject
 from athena.graphql.schemas.train_exp import CreateTrainExp, DeleteTrainExp
 from athena.graphql.schemas.train_epoch_log import CreateTrainEpochLog
 class Mutation(graphene.ObjectType):
