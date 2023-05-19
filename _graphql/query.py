@@ -1,9 +1,10 @@
-from athena.graphql.schemas.train_epoch_log import TrainEpochLogType
+from athena.graphql.schemas.train_epoch_train_log import TrainEpochTrainLogType
+from athena.graphql.schemas.train_epoch_val_log import TrainEpochValLogType
 import graphene 
 
 from athena.graphql.schemas.project import ProjectType
 from athena.graphql.schemas.train_exp import TrainExpType
-from athena.models import ProjectDB, TrainExpDB, TrainEpochLogDB
+from athena.models import ProjectDB, TrainExpDB, TrainEpochTrainLogDB, TrainEpochValLogDB
 
 class Query(graphene.ObjectType):
     ### for ProjectDB #############################################
@@ -33,15 +34,26 @@ class Query(graphene.ObjectType):
         if TrainExpDB.objects.filter(id=train_exp_id):
             return TrainExpDB.objects.get(id=train_exp_id)
         
-    ### for TrainEpochLogDB #############################################
-    train_epoch_log_all = graphene.List(TrainEpochLogType)
-    def resolve_train_epoch_log_all(self, info):
-        return TrainEpochLogDB.objects.all()
+    ### for TrainEpochTrainLogDB #############################################
+    train_epoch_train_log_all = graphene.List(TrainEpochTrainLogType)
+    def resolve_train_epoch_train_log_all(self, info):
+        return TrainEpochTrainLogDB.objects.all()
     
-    train_epoch_log_all_by_train_exp = graphene.List(TrainEpochLogType, train_exp=graphene.Int())
-    def resolve_train_epoch_log_all_by_train_exp(self, info, train_exp):
+    train_epoch_train_log_all_by_train_exp = graphene.List(TrainEpochTrainLogType, train_exp=graphene.Int())
+    def resolve_train_epoch_train_log_all_by_train_exp(self, info, train_exp):
         if TrainExpDB.objects.filter(id=train_exp):
             train_exp_ojb = TrainExpDB.objects.get(id=train_exp)
-            if TrainEpochLogDB.objects.filter(train_exp=train_exp_ojb):
-                return TrainEpochLogDB.objects.filter(train_exp=train_exp_ojb)
+            if TrainEpochTrainLogDB.objects.filter(train_exp=train_exp_ojb):
+                return TrainEpochTrainLogDB.objects.filter(train_exp=train_exp_ojb)
     
+    ### for TrainEpochValLogDB #############################################
+    train_epoch_val_log_all = graphene.List(TrainEpochValLogType)
+    def resolve_train_epoch_val_log_all(self, info):
+        return TrainEpochValLogDB.objects.all()
+    
+    train_epoch_val_log_all_by_train_exp = graphene.List(TrainEpochValLogType, train_exp=graphene.Int())
+    def resolve_train_epoch_val_log_all_by_train_exp(self, info, train_exp):
+        if TrainExpDB.objects.filter(id=train_exp):
+            train_exp_ojb = TrainExpDB.objects.get(id=train_exp)
+            if TrainEpochValLogDB.objects.filter(train_exp=train_exp_ojb):
+                return TrainEpochValLogDB.objects.filter(train_exp=train_exp_ojb)

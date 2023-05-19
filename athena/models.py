@@ -26,23 +26,54 @@ class TrainExpDB(models.Model):
     class Meta:
         db_table = "TrainExpDB"
         
-class TrainEpochLogDB(models.Model):
+class TrainEpochTrainLogDB(models.Model):
+    '''
+        mode: one of train, val, and test
+    '''
     train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
     epoch = models.IntegerField(blank=False)
     log = models.JSONField(default=dict, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "TrainEpochLogDB"
+        db_table = "TrainEpochTrainLogDB"
+        ordering = ['epoch']
+            
+class TrainEpochValLogDB(models.Model):
+    '''
+        mode: one of train, val, and test
+    '''
+    train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
+    epoch = models.IntegerField(blank=False)
+    log = models.JSONField(default=dict, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "TrainEpochValLogDB"
         ordering = ['epoch']
     
-class TrainStepLogDB(models.Model):
+class TrainStepTrainLogDB(models.Model):
+    '''
+        mode: one of train, val, and test
+    '''
     train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
     step = models.IntegerField(blank=False)
     log = models.JSONField(default=dict, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "TrainStepLogDB"
+        db_table = "TrainStepTrainLogDB"
         ordering = ['step']
         
+class TrainStepValLogDB(models.Model):
+    '''
+        mode: one of train, val, and test
+    '''
+    train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
+    step = models.IntegerField(blank=False)
+    log = models.JSONField(default=dict, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "TrainStepValLogDB"
+        ordering = ['step']
