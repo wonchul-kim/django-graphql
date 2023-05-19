@@ -5,7 +5,7 @@ from athena.models import ProjectDB, TrainExpDB
 class TrainExpType(DjangoObjectType):
     class Meta:
         model = TrainExpDB 
-        fields = ('id', 'project', 'created_at', 'updated_at', 'description')
+        fields = ('id', 'project', 'created_at', 'description')
         
 
 class CreateTrainExp(graphene.Mutation):

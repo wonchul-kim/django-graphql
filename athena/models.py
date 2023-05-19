@@ -20,7 +20,6 @@ class ProjectDB(models.Model):
 class TrainExpDB(models.Model):
     project = models.ForeignKey(ProjectDB, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=1500, blank=True)
     
     class Meta:
