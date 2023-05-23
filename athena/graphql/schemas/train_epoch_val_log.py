@@ -1,4 +1,3 @@
-from urllib import request
 import graphene
 from graphene_django import DjangoObjectType 
 from athena.models import TrainExpDB, TrainEpochValLogDB

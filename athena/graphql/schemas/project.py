@@ -1,4 +1,3 @@
-from ast import Delete
 import graphene
 from graphene_django import DjangoObjectType 
 from athena.models import ProjectDB 

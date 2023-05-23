@@ -1,4 +1,3 @@
-from urllib import request
 import graphene
 from graphene_django import DjangoObjectType 
 from athena.models import TrainExpDB, TrainEpochTrainLogDB
@@ -27,7 +26,5 @@ class CreateTrainEpochTrainLog(graphene.Mutation):
 
             return CreateTrainEpochTrainLog(train_epoch_train_log=train_epoch_train_log_db, msg="Successfully added!")
         else:
-            return CreateTrainEpochTrainLog(train_epoch_train_log=None, msg=f"There is no such train exp. id({train_exp}) added!")
+            return CreateTrainEpochTrainLog(train_epoch_train_log=None, msg=f"There is no such train exp. id({train_exp}) added!")       
         
-
-       

@@ -25,6 +25,34 @@ class TrainExpDB(models.Model):
     
     class Meta:
         db_table = "TrainExpDB"
+        ordering = ['project']
+        
+class TrainExpServerInfoDB(models.Model):
+    train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
+    server_host_name = models.CharField(max_length=20, blank=True)
+    container_name = models.CharField(max_length=50, blank=True)
+    description = models.CharField(max_length=1500, blank=True)
+
+    class Meta:
+        db_table = "TrainExpServerInfoDB"
+        ordering = ['train_exp']
+        
+class TrainExpTrainInfoDB(models.Model):
+    train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
+    parameters = models.JSONField(default=dict, blank=True)
+    configurations = models.JSONField(default=dict, blank=True)
+    options = models.JSONField(default=dict, blank=True)
+    description = models.CharField(max_length=1500, blank=True)
+
+    task = models.CharField(max_length=15, blank=True)
+    model_name = models.CharField(max_length=30, blank=True)
+    last_epoch = models.IntegerField(blank=True)
+    resume = models.BooleanField(blank=True)
+    
+    
+    class Meta:
+        db_table = "TrainExpTrainInfoDB"
+        ordering = ['train_exp']
         
 class TrainEpochTrainLogDB(models.Model):
     '''

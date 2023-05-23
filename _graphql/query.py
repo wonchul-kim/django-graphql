@@ -28,7 +28,6 @@ class Query(graphene.ObjectType):
             project_db_obj = ProjectDB.objects.get(project_name=project_name)
             return TrainExpDB.objects.filter(project=project_db_obj)
     
-    ## FIXME: not working......!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     train_exp_by_id = graphene.Field(TrainExpType, train_exp_id=graphene.Int())
     def resolve_train_exp_by_id(self, info, train_exp_id):
         if TrainExpDB.objects.filter(id=train_exp_id):

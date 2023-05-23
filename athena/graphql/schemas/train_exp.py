@@ -20,8 +20,7 @@ class CreateTrainExp(graphene.Mutation):
     def mutate(cls, self, info, project_name, description=""):
         if ProjectDB.objects.filter(project_name=project_name):
             project_db_obj = ProjectDB.objects.get(project_name=project_name)
-            # project_obj = ProjectDB.objects.get(id=project_id)
-            train_exp_db = TrainExpDB(project=project_db_obj)
+            train_exp_db = TrainExpDB(project=project_db_obj, description=description)
             train_exp_db.save()
 
             return CreateTrainExp(train_exp=train_exp_db, msg="Successfully added!")
