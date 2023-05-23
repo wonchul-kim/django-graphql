@@ -19,6 +19,7 @@ class ProjectDB(models.Model):
     
 class SubProjectDB(models.Model):
     project = models.ForeignKey(ProjectDB, on_delete=models.CASCADE)
+    project_name = models.CharField(max_length=50, blank=False)
     sub_project_name = models.CharField(max_length=50, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -32,6 +33,8 @@ class SubProjectDB(models.Model):
     
 class TrainExpDB(models.Model):
     sub_project = models.ForeignKey(SubProjectDB, on_delete=models.CASCADE)
+    project_name = models.CharField(max_length=50, blank=False)
+    sub_project_name = models.CharField(max_length=50, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=1500, blank=True)
     

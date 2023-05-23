@@ -21,7 +21,7 @@ class CreateSubProject(graphene.Mutation):
         if ProjectDB.objects.filter(project_name=project_name):
             project_db_obj = ProjectDB.objects.get(project_name=project_name)
             if not SubProjectDB.objects.filter(project=project_db_obj, sub_project_name=sub_project_name):
-                sub_project_db = SubProjectDB(project=project_db_obj, sub_project_name=sub_project_name, description=description)
+                sub_project_db = SubProjectDB(project=project_db_obj, project_name=project_name, sub_project_name=sub_project_name, description=description)
                 sub_project_db.save()
         
                 return CreateSubProject(sub_project=sub_project_db, msg=f"Sub-project({sub_project_name}) has beed successfully added project({project_name})!")

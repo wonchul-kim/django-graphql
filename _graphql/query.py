@@ -1,10 +1,12 @@
-from athena.graphql.schemas.train_epoch_train_log import TrainEpochTrainLogType
-from athena.graphql.schemas.train_epoch_val_log import TrainEpochValLogType
+from ast import Sub
 import graphene 
 
+from athena.models import ProjectDB, SubProjectDB, TrainExpDB, TrainEpochTrainLogDB, TrainEpochValLogDB
 from athena.graphql.schemas.project import ProjectType
+from athena.graphql.schemas.sub_project import SubProjectType
 from athena.graphql.schemas.train_exp import TrainExpType
-from athena.models import ProjectDB, TrainExpDB, TrainEpochTrainLogDB, TrainEpochValLogDB
+from athena.graphql.schemas.train_epoch_train_log import TrainEpochTrainLogType
+from athena.graphql.schemas.train_epoch_val_log import TrainEpochValLogType
 
 class Query(graphene.ObjectType):
     ### for ProjectDB #############################################
@@ -17,6 +19,25 @@ class Query(graphene.ObjectType):
         if ProjectDB.objects.filter(project_name=project_name):
             return ProjectDB.objects.get(project_name=project_name)
 
+    ### for SubProjectDB #############################################
+    sub_project_all = graphene.List(SubProjectType)
+    def resolve_sub_project_all(self, info):
+        return SubProjectDB.objects.all()
+    
+    sub_project_by_project_name = graphene.Field(SubProjectType, project_name=graphene.String())
+    def resolve_sub_project_by_project_name(self, info, project_name):
+        if ProjectDB.objects.filter(project_name=project_name):
+            project_db_obj = ProjectDB.objects.get(project_name=project_name)
+            
+            if SubProjectDB.objects.filter(project=project_db_obj):
+                return SubProjectDB.objects.get(project=project_db_obj)
+            else:
+                print(f"There is no such project({project_name}) in sub-project db")
+                return None 
+        else:
+            print(f"There is no such project({project_name}) in project db")
+            return None
+
     ### for TrainExpDB #############################################
     train_exp_all = graphene.List(TrainExpType)
     def resolve_train_exp_all(self, info):
@@ -26,7 +47,7 @@ class Query(graphene.ObjectType):
     def resolve_train_exp_by_project(self, info, project_name):
         if ProjectDB.objects.filter(project_name=project_name):
             project_db_obj = ProjectDB.objects.get(project_name=project_name)
-            return TrainExpDB.objects.filter(project=project_db_obj)
+            return TrainExpDB.objects.get(project=project_db_obj)
     
     train_exp_by_id = graphene.Field(TrainExpType, train_exp_id=graphene.Int())
     def resolve_train_exp_by_id(self, info, train_exp_id):

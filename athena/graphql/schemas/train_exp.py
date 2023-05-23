@@ -23,7 +23,8 @@ class CreateTrainExp(graphene.Mutation):
             project_db_obj = ProjectDB.objects.get(project_name=project_name)
             if SubProjectDB.objects.filter(project=project_db_obj, sub_project_name=sub_project_name):
                 sub_project_db_obj = SubProjectDB.objects.get(project=project_db_obj, sub_project_name=sub_project_name)
-                train_exp_db = TrainExpDB(sub_project=sub_project_db_obj, description=description)
+                train_exp_db = TrainExpDB(sub_project=sub_project_db_obj, project_name=project_name, \
+                                            sub_project_name=sub_project_name, description=description)
                 train_exp_db.save()
 
                 return CreateTrainExp(train_exp=train_exp_db, msg="Successfully added!")
