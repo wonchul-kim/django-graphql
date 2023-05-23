@@ -17,14 +17,27 @@ class ProjectDB(models.Model):
     def __str__(self):
         return self.project_name
     
-class TrainExpDB(models.Model):
+class SubProjectDB(models.Model):
     project = models.ForeignKey(ProjectDB, on_delete=models.CASCADE)
+    sub_project_name = models.CharField(max_length=50, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    description = models.CharField(max_length=1500, blank=True)
+
+    class Meta:
+        db_table = 'SubProjectDB'
+        
+    def __str__(self):
+        return self.sub_project_name    
+    
+class TrainExpDB(models.Model):
+    sub_project = models.ForeignKey(SubProjectDB, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=1500, blank=True)
     
     class Meta:
         db_table = "TrainExpDB"
-        ordering = ['project']
+        ordering = ['sub_project']
         
 class TrainExpServerInfoDB(models.Model):
     train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)

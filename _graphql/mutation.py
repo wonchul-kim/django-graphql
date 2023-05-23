@@ -2,6 +2,7 @@ from calendar import c
 import graphene 
 
 from athena.graphql.schemas.project import CreateProject, DeleteProject
+from athena.graphql.schemas.sub_project import CreateSubProject, DeleteSubProject
 from athena.graphql.schemas.train_exp import CreateTrainExp, DeleteTrainExp
 from athena.graphql.schemas.train_exp_server_info import CreateTrainExpServerInfo
 from athena.graphql.schemas.train_exp_train_info import CreateTrainExpTrainInfo
@@ -12,6 +13,10 @@ class Mutation(graphene.ObjectType):
     ### for ProjectDB
     create_project = CreateProject.Field()
     delete_project = DeleteProject.Field()
+    
+    ### for Sub-ProjectDB
+    create_sub_project = CreateSubProject.Field()
+    delete_sub_project = DeleteSubProject.Field()
     
     ### for TrainExpDB
     create_train_exp = CreateTrainExp.Field() 
