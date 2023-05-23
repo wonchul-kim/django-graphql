@@ -17,7 +17,7 @@ class CreateProject(graphene.Mutation):
     
     @classmethod 
     def mutate(cls, self, info, project_name, description=""):
-        if not ProjectDB.objects.filter(project_name__icontains=project_name):
+        if not ProjectDB.objects.filter(project_name=project_name):
             project_db = ProjectDB(project_name=project_name, description=description)
             project_db.save()
         
@@ -34,7 +34,7 @@ class DeleteProject(graphene.Mutation):
     
     @classmethod 
     def mutate(cls, self, info, project_name):
-        if ProjectDB.objects.filter(project_name__icontains=project_name):
+        if ProjectDB.objects.filter(project_name=project_name):
             ProjectDB.objects.get(project_name=project_name).delete()
 
             return DeleteProject(msg=f"Project({project_name}) has been deleted successfully!")

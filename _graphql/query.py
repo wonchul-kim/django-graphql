@@ -14,7 +14,7 @@ class Query(graphene.ObjectType):
     
     project_search = graphene.Field(ProjectType, project_name=graphene.String())
     def resolve_project_search(self, info, project_name):
-        if ProjectDB.objects.filter(project_name__icontains=project_name):
+        if ProjectDB.objects.filter(project_name=project_name):
             return ProjectDB.objects.get(project_name=project_name)
 
     ### for TrainExpDB #############################################
