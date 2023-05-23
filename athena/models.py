@@ -133,3 +133,12 @@ class TrainStepValLogDB(models.Model):
     class Meta:
         db_table = "TrainStepValLogDB"
         ordering = ['step']
+        
+class HealthCheckDB(models.Model):
+    health = models.BooleanField(default=True)
+    
+    class Meta:
+        db_table = "HealthCheckDB"
+        
+    def __str__(self):
+        return self.health

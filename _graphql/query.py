@@ -3,13 +3,21 @@ from this import d
 import graphene 
 
 from athena.models import ProjectDB, SubProjectDB, TrainExpDB, TrainEpochTrainLogDB, TrainEpochValLogDB
+from athena.models import HealthCheckDB
 from athena.graphql.schemas.project import ProjectType
 from athena.graphql.schemas.sub_project import SubProjectType
 from athena.graphql.schemas.train_exp import TrainExpType
 from athena.graphql.schemas.train_epoch_train_log import TrainEpochTrainLogType
 from athena.graphql.schemas.train_epoch_val_log import TrainEpochValLogType
 
+from athena.graphql.schemas.health_check import HealthCheckType
+
 class Query(graphene.ObjectType):
+    ### for ProjectDB #############################################
+    health_check = graphene.Field(HealthCheckType)
+    def resolve_health_check(self, info):
+        return HealthCheckDB.objects.all()
+    
     ### for ProjectDB #############################################
     project_all = graphene.List(ProjectType)
     def resolve_project_all(self, info):
