@@ -81,6 +81,19 @@ class TrainEpochTrainLogDB(models.Model):
     class Meta:
         db_table = "TrainEpochTrainLogDB"
         ordering = ['epoch']
+
+class TrainEpochSystemDB(models.Model):
+    '''
+        mode: one of train, val, and test
+    '''
+    train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
+    epoch = models.IntegerField(blank=False)
+    system = models.JSONField(default=dict, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "TrainEpochSystemDB"
+        ordering = ['epoch']
             
 class TrainEpochValLogDB(models.Model):
     '''
