@@ -2,11 +2,13 @@ from ast import Sub
 from this import d
 import graphene 
 
-from athena.models import ProjectDB, SubProjectDB, TrainExpDB, TrainEpochTrainLogDB, TrainEpochValLogDB
+from athena.models import ProjectDB, SubProjectDB, TrainExpDB, TrainExpServerInfoDB, TrainExpTrainInfoDB, TrainEpochTrainLogDB, TrainEpochValLogDB
 from athena.models import HealthCheckDB
 from athena.graphql.schemas.project import ProjectType
 from athena.graphql.schemas.sub_project import SubProjectType
 from athena.graphql.schemas.train_exp import TrainExpType
+from athena.graphql.schemas.train_exp_server_info import TrainExpServerInfoType
+from athena.graphql.schemas.train_exp_train_info import TrainExpTrainInfoDB
 from athena.graphql.schemas.train_epoch_train_log import TrainEpochTrainLogType
 from athena.graphql.schemas.train_epoch_val_log import TrainEpochValLogType
 
@@ -65,6 +67,18 @@ class Query(graphene.ObjectType):
     def resolve_train_exp_by_id(self, info, train_exp_id):
         if TrainExpDB.objects.filter(id=train_exp_id):
             return TrainExpDB.objects.get(id=train_exp_id)
+        
+    ### for TrainExpServerInfoDB ############################################
+    train_exp_server_info_all = graphene.List(TrainExpServerInfoType)
+    def resolve_train_exp_server_info_all(self, info):
+        return TrainExpServerInfoDB.objects.all()
+    
+    train_exp_server_info_all_by_train_exp = graphene.Field(TrainExpServerInfoType, train_exp_id=graphene.Int())
+    def resolve_train_exp_server_info_all_by_train_exp(self, info, train_exp_id):
+        if TrainExpDB.objects.filter(id=train_exp_id):
+            train_exp_db_obj = TrainExpDB.objects.get(id=train_exp_id)
+            if TrainExpServerInfoDB.objects.filter(train_exp=train_exp_db_obj):
+                return TrainExpServerInfoDB.objects.get(train_exp=train_exp_db_obj)
         
     ### for TrainEpochTrainLogDB #############################################
     train_epoch_train_log_all = graphene.List(TrainEpochTrainLogType)
