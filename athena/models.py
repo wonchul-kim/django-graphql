@@ -45,6 +45,7 @@ class TrainExpDB(models.Model):
 class TrainExpServerInfoDB(models.Model):
     train_exp = models.ForeignKey(TrainExpDB, on_delete=models.CASCADE)
     server_host_name = models.CharField(max_length=20, blank=True)
+    server_ip = models.CharField(max_length=50, blank=True)
     container_name = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=1500, blank=True)
 
