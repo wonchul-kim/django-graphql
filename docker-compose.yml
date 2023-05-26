@@ -6,9 +6,9 @@ services:
     container_name: aiv-graphql-server
     env_file:
       - ./.env
-    command: bash -ic "python /graphql_server/manage.py makemigrations && python /graphql_server/manage.py migrate && python /graphql_server/manage.py runserver 0.0.0.0:8001"
+    command: bash -ic "sh /graphql_server/scripts/run.sh"
     ports:
-      - ${PORT}:${PORT}
+      - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
       - /etc/localtime:/etc/localtime # for time sync
       - .:/graphql_server
