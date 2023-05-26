@@ -6,3 +6,6 @@ __pycache__
 *.pyc
 */migrations
 migrations
+
+athena/migrations
+athena/migrations/*
